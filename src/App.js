@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { useEffect } from 'react';
+import { getSocket, setuptSocketIO } from './Services/Socket';
+import Toast from './Components/Toast';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        if(getSocket() == null) {
+            console.log('Init');
+            setuptSocketIO()
+        }
+    }, [])
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                Notification Playground
+            </header>
+
+            <section className='App-viewport'>
+                <Toast></Toast>
+            </section>
+        </div>
+    );
 }
 
 export default App;
