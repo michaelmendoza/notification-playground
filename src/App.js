@@ -18,7 +18,7 @@ function App() {
             </header>
 
             <section className='App-viewport'>
-                <Toast></Toast>
+                <Toast width={'400px'}></Toast>
             </section>
         </div>
     );
