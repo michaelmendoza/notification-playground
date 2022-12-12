@@ -1,65 +1,67 @@
-.App {
-  text-align: center;
+button {
+    cursor: pointer;
 }
 
+.App { }
+
 .App-header {
-  background-color: lighten(#282c34, 20%);
-  height: 80px;
-  padding: 0 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: lighten(#282c34, 20%);
+    height: 80px;
+    padding: 0 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-viewport {
-  min-height: 100vh;
-  background-color: #282c34;
-  padding: 2em;
+    min-height: 100vh;
+    background-color: #282c34;
+    padding: 2em;
 }
 
 /** Layout with flex box */
 
 .layout-row {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .layout-row-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }
 
 .layout-row {
-  display: flex;
-  flex-direction: row;
+display: flex;
+flex-direction: row;
 }
 
 .layout-column {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .layout-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .flex-wrap {
-  flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .flex { box-sizing: border-box; flex: 1; }
-$percents: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100;
-@each $percent in $percents {
-    .flex-#{$percent} { flex: 0 0 percentage($percent/100); }
+    $percents: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100;
+    @each $percent in $percents {
+        .flex-#{$percent} { flex: 0 0 percentage($percent/100); }
 }
 
 .layout-space-between {
-  justify-content:space-between
+    justify-content:space-between
 }

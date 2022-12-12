@@ -1,7 +1,8 @@
 import { io } from 'socket.io-client';
 
 let socket = null;
-const messages = [];
+let messages = [];
+export const expirationTimeInSecs = 20;
 
 export const setuptSocketIO = () => {
     socket = io('http://localhost:3001');
@@ -27,3 +28,17 @@ export const getSocket = () => {
 export const getMessages = () => {
     return messages;
 }
+
+/** Removes expired messages */
+export const cleanMessages = () => {
+    const now = new Date();
+    
+    const _messages = messages.filter((item) => {
+        const nowTime = now.getTime();
+        const messageTime =  item.timestamp;
+        const deltaTime = nowTime - messageTime;
+        return  deltaTime < expirationTimeInSecs * 1000;
+    })
+
+    messages = _messages;
+}   

@@ -2,6 +2,7 @@ import './App.scss';
 import { useEffect } from 'react';
 import { getSocket, setuptSocketIO } from './Services/Socket';
 import Toast from './Components/Toast';
+import APIForm from './Components/APIForm';
 
 function App() {
     useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
             </header>
 
             <section className='App-viewport'>
+                <APIForm></APIForm>
                 <Toast width={'400px'}></Toast>
             </section>
         </div>
