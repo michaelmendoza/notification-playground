@@ -1,13 +1,10 @@
 
 import './ToastPanel.scss';
 import { useState } from 'react';
-import useInterval from '../Hooks/useInterval';
 import { getChannelHistory, expirationTimeInSecs, subscribeToChannelHistory } from '../Services/Socket';
 import { IoMdAlert, IoIosCheckmarkCircle, IoIosWarning } from "react-icons/io";
 import { FaTimes } from "react-icons/fa";
 import { useEffect } from 'react';
-
-const refreshTime = 500;
 
 const ToastIcon = ({status}) => {
     return (<div className='toast-icon'>
