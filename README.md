@@ -1,3 +1,3 @@
-# Notification-Toast-Socketio
+# Notification-Playground
 
-This project is a toast notification react component using socketIO for data messages
+This project is a toast notification system with react components using socketIO for data messages
