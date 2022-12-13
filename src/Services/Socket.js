@@ -1,28 +1,36 @@
 import { io } from 'socket.io-client';
 
 let socket = null;
-let messages = [];
 const data = { };
+const history = {};
 export const expirationTimeInSecs = 20;
 
-export const setuptSocketIO = () => {
+/** Returns Socket Instance */
+export const getSocket = () => {
+    return socket;
+}
+
+/** Initializes SocketIO Instance with message history subscriptions */
+export const initSocket = () => {
     socket = io('http://localhost:3001');
 
     socket.on('connect', () => {
-        console.log('connected');
+        console.log('User connected.');
     })
 
-    socket.on('disconnect', () => {
-        console.log('disconnected');
-    })
+    subscribeToChannelHistory('message');
 
-    socket.on('message', data => {
-        console.log('Message:', data);
-        messages.push(data);
-    })
+    console.log('Socket Initialized.');
 }
 
-export const subscribeToChannel = (channelname, setUpdate = null) => {
+/** Returns data for specified channel */
+export const getChannelData = (channelname) => {
+    return data[channelname];
+}
+
+
+/** Subscribes to Channel Data */
+export const subscribeToChannelData = (channelname, setUpdate = null) => {
     if(!socket) return;
     
     socket.on(channelname, (_data) => {
@@ -32,28 +40,35 @@ export const subscribeToChannel = (channelname, setUpdate = null) => {
     })
 }
 
-export const getChannelData = (channelname) => {
-    return data[channelname];
+/** Returns history for specified channel */
+export const getChannelHistory = (channelname) => {
+    cleanChannelHistory(channelname);
+    return history[channelname];
 }
 
-export const getSocket = () => {
-    return socket;
+/** Subscribes to Channel History */
+export const subscribeToChannelHistory = (channelname, setUpdate = null) => {
+    if(!socket) return;
+
+    history[channelname] = [];
+
+    socket.on(channelname, (_data) => {
+        history[channelname].push(_data);
+        if (setUpdate) setUpdate(_data);
+        console.log('Update:', channelname, _data);
+    })
 }
 
-export const getMessages = () => {
-    return messages;
-}
-
-/** Removes expired messages */
-export const cleanMessages = () => {
+/** Removes expired history data */
+export const cleanChannelHistory = (channelname) => {
     const now = new Date();
     
-    const _messages = messages.filter((item) => {
+    const _history = history[channelname].filter((item) => {
         const nowTime = now.getTime();
         const messageTime =  item.timestamp;
         const deltaTime = nowTime - messageTime;
         return  deltaTime < expirationTimeInSecs * 1000;
     })
 
-    messages = _messages;
+    history[channelname] = _history;
 }   

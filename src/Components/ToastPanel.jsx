@@ -2,7 +2,7 @@
 import './ToastPanel.scss';
 import { useState } from 'react';
 import useInterval from '../Hooks/useInterval';
-import { cleanMessages, expirationTimeInSecs, getMessages } from '../Services/Socket';
+import { getChannelHistory, expirationTimeInSecs } from '../Services/Socket';
 import { IoMdAlert, IoIosCheckmarkCircle, IoIosWarning } from "react-icons/io";
 import { FaTimes } from "react-icons/fa";
 
@@ -41,9 +41,8 @@ const ToastPanel = ({ width }) => {
     const [messages, setMessages] = useState([]);
 
     useInterval(() => {
-        cleanMessages();
-        const messages = getMessages();
-        console.log(`Poling messages: ${messages.length} Messages Found.`);
+        const messages = getChannelHistory('message');
+        console.log(`Polling messages: ${messages.length} Messages Found.`);
         setMessages([...messages]);
     }, refreshTime);
 
