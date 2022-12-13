@@ -6,7 +6,7 @@ const JokePanel = () => {
     const [data, setData] = useState({ message: '---' });
 
     useEffect(() => {
-        subscribeToChannelData('user-test', (_data) => setData(_data));
+        return subscribeToChannelData('user-test', (_data) => setData(_data));
     }, [])
 
     return (<div className="joke-panel">

@@ -18,8 +18,6 @@ export const initSocket = () => {
         console.log('User connected.');
     })
 
-    subscribeToChannelHistory('message');
-
     console.log('Socket Initialized.');
 }
 
@@ -32,12 +30,20 @@ export const getChannelData = (channelname) => {
 /** Subscribes to Channel Data */
 export const subscribeToChannelData = (channelname, setUpdate = null) => {
     if(!socket) return;
-    
-    socket.on(channelname, (_data) => {
+    console.log('Adding ChannelData sub to: ' + channelname);
+
+    const listener = (_data) => {
         data[channelname] = _data;
         if (setUpdate) setUpdate(_data);
         console.log('Update:', channelname, _data);
-    })
+    }
+
+    socket.on(channelname, listener);
+
+    return () => { 
+        console.log('Removing ChannelData sub to: ' + channelname); 
+        socket.off(channelname, listener) 
+    };
 }
 
 /** Returns history for specified channel */
@@ -49,14 +55,22 @@ export const getChannelHistory = (channelname) => {
 /** Subscribes to Channel History */
 export const subscribeToChannelHistory = (channelname, setUpdate = null) => {
     if(!socket) return;
+    console.log('Adding ChannelHistory sub to: ' + channelname);
 
     history[channelname] = [];
 
-    socket.on(channelname, (_data) => {
+    const listener = (_data) => {
         history[channelname].push(_data);
         if (setUpdate) setUpdate(_data);
         console.log('Update:', channelname, _data);
-    })
+    }
+
+    socket.on(channelname, listener);
+
+    return () => { 
+        console.log('Removing ChannelHistory sub to: ' + channelname); 
+        socket.off(channelname, listener);
+    };
 }
 
 /** Removes expired history data */
