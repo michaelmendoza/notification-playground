@@ -24,3 +24,6 @@ createSocket(server);
 server.listen(port, () => {
     console.log(`Server listening on *:${port}`);
 });
+
+const { runJobs } = require('./jobs');
+runJobs();

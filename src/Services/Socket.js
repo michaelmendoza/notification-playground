@@ -2,6 +2,7 @@ import { io } from 'socket.io-client';
 
 let socket = null;
 let messages = [];
+const data = { };
 export const expirationTimeInSecs = 20;
 
 export const setuptSocketIO = () => {
@@ -19,6 +20,20 @@ export const setuptSocketIO = () => {
         console.log('Message:', data);
         messages.push(data);
     })
+}
+
+export const subscribeToChannel = (channelname, setUpdate = null) => {
+    if(!socket) return;
+    
+    socket.on(channelname, (_data) => {
+        data[channelname] = _data;
+        if (setUpdate) setUpdate(_data);
+        console.log('Update:', channelname, _data);
+    })
+}
+
+export const getChannelData = (channelname) => {
+    return data[channelname];
 }
 
 export const getSocket = () => {

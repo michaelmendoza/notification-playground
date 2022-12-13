@@ -1,14 +1,15 @@
 import './App.scss';
 import { useEffect } from 'react';
-import { getSocket, setuptSocketIO } from './Services/Socket';
-import Toast from './Components/Toast';
+import { getSocket, setuptSocketIO, subscribeToChannel } from './Services/Socket';
+import Toast from './Components/ToastPanel';
 import APIForm from './Components/APIForm';
+import JokePanel from './Components/JokePanel';
 
 function App() {
     useEffect(() => {
         if(getSocket() == null) {
             console.log('Init');
-            setuptSocketIO()
+            setuptSocketIO();  
         }
     }, [])
 
@@ -19,6 +20,7 @@ function App() {
             </header>
 
             <section className='App-viewport'>
+                <JokePanel></JokePanel>
                 <APIForm></APIForm>
                 <Toast width={'400px'}></Toast>
             </section>
