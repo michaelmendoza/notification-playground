@@ -2,7 +2,7 @@ import { io } from 'socket.io-client';
 
 let socket = null;
 const data = { };
-const history = {};
+const history = { };
 export const expirationTimeInSecs = 20;
 
 /** Returns Socket Instance */
