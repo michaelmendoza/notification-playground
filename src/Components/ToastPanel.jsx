@@ -27,7 +27,7 @@ const Toast = ({ status, message, timestamp }) => {
         const deltaTime = nowTime - timestamp;
         return deltaTime > (expirationTimeInSecs - 1) * 1000;
     }
-
+    
     return (<div className={'layout-row-center layout-space-between toast toast-' + status + (checkIsExpired() ? ' toast-fadeout':'')}>
         <ToastIcon status = {status}></ToastIcon>
         <span> { message } </span>

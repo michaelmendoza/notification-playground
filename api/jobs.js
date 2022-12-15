@@ -1,4 +1,4 @@
-const { getSocket } = require('./socket');
+const { emit } = require('./socket');
 
 let jokeCount = 0;
 
@@ -17,7 +17,7 @@ const jokes = [
 
 const sendJoke = () => {
     const index = jokeCount++ % jokes.length;
-    getSocket().emit('user-test', { status:'success', message:jokes[index], timestamp: Date.now()} );
+    emit('user-test', { status:'success', message:jokes[index], timestamp: Date.now()} );
     console.log('Joke sent:' + jokes[index])
 }
 
